@@ -6,19 +6,19 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Roles') }} | <a href="{{ route('roles.create') }}" class="btn-light">Nuevo Rol</a></div>
+                <div class="card-header">{{ __('Regions') }} | <a href="{{ route('regions.create') }}" class="btn-light">Nuevo Región</a></div>
 
                 <div class="card-body">
-                    @if (isset($roles) && @count($roles))
+                    @if (isset($regions) && @count($regions))
                        <table class="table table-hover">
-                           @foreach ($roles as $role)
+                           @foreach ($regions as $region)
                                <tr>
-                                   <td><a href="{{ route('roles.show', $role) }}">{{ $role->nombre }}</a></td>
+                                   <td><a href="{{ route('regions.show', $region) }}">{{ $region->nombre }}</a></td>
                                </tr>
                            @endforeach
                        </table>
                     @else
-                        <p class="text-info">No hay roles registrados</p>
+                        <p class="text-info">No hay regiones registrados</p>
                     @endif
                 </div>
             </div>
