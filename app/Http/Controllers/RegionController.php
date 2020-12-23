@@ -3,6 +3,7 @@
 namespace App\Http\Controllers;
 
 use App\Region;
+use App\Comuna;
 use Illuminate\Http\Request;
 
 class RegionController extends Controller
@@ -26,7 +27,7 @@ class RegionController extends Controller
      */
     public function create()
     {
-        //
+        return view('regions.create');
     }
 
     /**
@@ -37,7 +38,15 @@ class RegionController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $this->validate($request, [
+            'nombre' => 'required|string|min:4|unique:regions',
+        ]);
+
+        $region = new Region;
+        $region->nombre = $request->nombre;
+        $region->save();
+
+        return redirect('/regions')->with('success','La región se ha registrado correctamente');
     }
 
     /**
@@ -48,7 +57,9 @@ class RegionController extends Controller
      */
     public function show(Region $region)
     {
-        //
+        #select c.id, c.nombre from comunas c inner join regiones r on c.region_id = r.id where c.region_id = ?
+        $comunas = Comuna::select('id','nombre')->where('region_id', $region->id)->orderBy('nombre','ASC')->get();
+        return view('regions.show', compact('region','comunas'));
     }
 
     /**
@@ -59,7 +70,7 @@ class RegionController extends Controller
      */
     public function edit(Region $region)
     {
-        //
+        return view('regions.edit', compact('region'));
     }
 
     /**
@@ -71,7 +82,15 @@ class RegionController extends Controller
      */
     public function update(Request $request, Region $region)
     {
-        //
+        $this->validate($request, [
+            'nombre' => 'required|string|min:4',
+        ]);
+
+        $reg = Region::find($region->id);
+        $reg->nombre = $request->nombre;
+        $reg->save();
+
+        return redirect('/regions/' . $region->id)->with('success','La región se ha modificado correctamente');
     }
 
     /**

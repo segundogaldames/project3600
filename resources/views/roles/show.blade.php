@@ -29,6 +29,37 @@
                     </p>
                 </div>
             </div>
+            <!--vistad de usuarios asociados a un rol-->
+            <div class="card">
+                <div class="card-header">Usuarios {{ $role->nombre }}</div>
+
+                <div class="card-body">
+                  @if (isset($users) && @count($users))
+                       <table class="table table-hover">
+                          <tr>
+                            <th>Nombre</th>
+                            <th>Email</th>
+                            <th>Activo</th>
+                          </tr>
+                           @foreach ($users as $user)
+                               <tr>
+                                   <td><a href="{{ route('users.show', $user) }}">{{ $user->name }}</a></td>
+                                   <td>{{ $user->email }}</td>
+                                   <td>
+                                    @if ($user->active==1)
+                                      Si
+                                    @else
+                                      No
+                                    @endif
+                                   </td>
+                               </tr>
+                           @endforeach
+                       </table>
+                    @else
+                        <p class="text-info">No hay usuarios registrados</p>
+                    @endif
+                </div>
+            </div>
         </div>
     </div>
 </div>

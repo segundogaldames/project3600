@@ -20,6 +20,12 @@ Route::get('/', function () {
 Auth::routes();
 
 Route::get('/home', 'HomeController@index')->name('home');
+Route::get('/comunas/addComuna/{region}','ComunaController@addComuna')->name('comunas.addComuna');
+Route::post('/comunas/setComuna/{region}','ComunaController@setComuna')->name('comunas.setComuna');
 
 Route::resource('roles', 'RoleController');
 Route::resource('users', 'UserController');
+Route::resource('regions','RegionController');
+Route::resource('comunas','ComunaController');
+
+
