@@ -4,6 +4,7 @@ namespace App\Http\Controllers;
 
 use App\Comuna;
 use App\Region;
+use App\Sede;
 use Illuminate\Http\Request;
 
 class ComunaController extends Controller
@@ -69,7 +70,8 @@ class ComunaController extends Controller
      */
     public function show(Comuna $comuna)
     {
-        return view('comunas.show', compact('comuna'));
+        $sedes = Sede::select('id','nombre','direccion')->where('comuna_id', $comuna->id)->orderBy('nombre','ASC')->get();
+        return view('comunas.show', compact('comuna','sedes'));
     }
 
     /**

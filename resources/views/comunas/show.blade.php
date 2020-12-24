@@ -31,7 +31,30 @@
                       <a href="{{ route('comunas.edit', $comuna) }}" class="btn btn-link">Editar</a>
                       <a href="{{ route('comunas.index') }}" class="btn btn-link">Comunas</a>
                       <a href="{{ route('regions.index') }}" class="btn btn-link">Regiones</a>
+                      <a href="{{ route('sedes.addSede', $comuna) }}" class="btn btn-primary">Agregar Sede</a>
                     </p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">{{ __('Sedes de ') }} {{ $comuna->nombre }}</div>
+
+                <div class="card-body">
+                  @if (isset($sedes) && @count($sedes))
+                       <table class="table table-hover">
+                        <tr>
+                          <th>Nombre</th>
+                          <th>Dirección</th>
+                        </tr>
+                        @foreach ($sedes as $sede)
+                          <tr>
+                            <td><a href="{{ route('sedes.show', $sede) }}">{{ $sede->nombre }}</a></td>
+                            <td>{{ $sede->direccion }}</a></td>
+                          </tr>
+                        @endforeach
+                       </table>
+                    @else
+                        <p class="text-info">No hay sedes registradas</p>
+                    @endif
                 </div>
             </div>
         </div>
