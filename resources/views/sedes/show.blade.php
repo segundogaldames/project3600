@@ -23,6 +23,10 @@
                         <td>{{ $sede->comuna->nombre }}</td>
                       </tr>
                       <tr>
+                        <th>Director:</th>
+                        <td>{{ $director->user->name }}</td>
+                      </tr>
+                      <tr>
                         <th>Fecha registro:</th>
                         <td>{{ $sede->created_at->format('d-m-Y H:i:s') }}</td>
                       </tr>
@@ -35,8 +39,25 @@
                       <a href="{{ route('sedes.edit', $sede) }}" class="btn btn-link">Editar</a>
                       <a href="{{ route('sedes.index') }}" class="btn btn-link">Sedes</a>
                       <a href="{{ route('comunas.index') }}" class="btn btn-link">Comunas</a>
-                      <a href="{{ route('comunas.index') }}" class="btn btn-primary">Agregar Escuela</a>
+                      <a href="{{ route('escuelaSedes.edit', $director) }}" class="btn btn-link">Cambiar Director</a>
                     </p>
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">{{ __('Escuelas de ') }} {{ $sede->nombre }}</div>
+
+                <div class="card-body">
+                  @if (isset($escuelas) && @count($escuelas))
+                       <table class="table table-hover">
+                           @foreach ($escuelas as $escuela)
+                               <tr>
+                                   <td><a href="{{ route('escuelas.show', $escuela->id) }}">{{ $escuela->escuela }}</a></td>
+                               </tr>
+                           @endforeach
+                       </table>
+                    @else
+                        <p class="text-info">No hay escuelas registradas</p>
+                    @endif
                 </div>
             </div>
         </div>

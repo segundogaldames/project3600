@@ -26,7 +26,7 @@ Route::get('/sedes/addSede/{comuna}','SedeController@addSede')->name('sedes.addS
 Route::post('/sedes/setSede/{comuna}','SedeController@setSede')->name('sedes.setSede');
 Route::get('/escuelaSedes/addSede/{escuela}','EscuelaSedeController@addSede')->name('escuelaSedes.addSede');
 Route::post('/escuelaSedes/setSede/{escuela}','EscuelaSedeController@setSede')->name('escuelaSedes.setSede');
-Route::get('/escuelaSedes/addEscuela/{sede}','EscuelaSedeController@addEscuela')->name('escuelaSede.addEscuela');
+Route::get('/escuelaSedes/addEscuela/{sede}','EscuelaSedeController@addEscuela')->name('escuelaSedes.addEscuela');
 Route::post('/escuelaSedes/setEscuela/{sede}','EscuelaSedeController@setEscuela')->name('escuelaSedes.setEscuela');
 
 Route::resource('roles', 'RoleController');
@@ -36,5 +36,6 @@ Route::resource('comunas','ComunaController');
 Route::resource('sedes','SedeController');
 Route::resource('escuelas','EscuelaController');
 Route::resource('escuelaSedes','EscuelaSedeController');
+Route::resource('carreras','CarreraController');
 
 

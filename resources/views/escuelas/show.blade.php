@@ -6,7 +6,7 @@
     <div class="row justify-content-center">
         <div class="col-md-8">
             <div class="card">
-                <div class="card-header">{{ __('Comunas') }}</div>
+                <div class="card-header">{{ __('Escuelas') }}</div>
 
                 <div class="card-body">
                     <table class="table table-hover">
@@ -39,16 +39,46 @@
                         <tr>
                           <th>Sede</th>
                           <th>Dirección</th>
+                          <th>Director(a)</th>
                         </tr>
                           @foreach ($sedes as $sede)
                             <tr>
                               <td><a href="{{ route('sedes.show', $sede->id) }}">{{ $sede->sede }}</a></td>
                               <td>{{ $sede->direccion }}</td>
+                              <td>{{ $sede->name }}</td>
                             </tr>
                           @endforeach
                       </table>
                     @else
                       <p class="text-info">No hay sedes asociadas</p>
+                    @endif
+                </div>
+            </div>
+            <div class="card">
+                <div class="card-header">{{ __('Carreras de ') }} {{ $escuela->nombre }}</div>
+
+                <div class="card-body">
+                  @if (isset($escuela->carreras) && @count($escuela->carreras))
+                       <table class="table table-hover">
+                          <tr>
+                            <th>Nombre</th>
+                            <th>Activa</th>
+                          </tr>
+                           @foreach ($escuela->carreras as $carrera)
+                               <tr>
+                                  <td><a href="{{ route('carreras.show', $carrera) }}">{{ $carrera->nombre }}</a></td>
+                                  <td>
+                                    @if ($carrera->active==1)
+                                      Si
+                                    @else
+                                      No
+                                    @endif
+                                   </td>
+                               </tr>
+                           @endforeach
+                       </table>
+                    @else
+                        <p class="text-info">No hay carreras registradas</p>
                     @endif
                 </div>
             </div>

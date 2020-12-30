@@ -13,11 +13,11 @@ class EscuelaSede extends Model
 
     public function sede()
     {
-    	return $this>belongsTo(Sede::class);
+    	return $this->belongsTo(Sede::class);
     }
 
     public function user()
     {
-    	return $this>belongsTo(User::class);
+    	return $this->belongsTo(User::class);
     }
 }

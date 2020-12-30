@@ -56,7 +56,7 @@ class EscuelaSedeController extends Controller
             'sede' => 'required|integer',
         ]);
 
-        #comprobar que una sede - escuela no halaa sido registrada
+        #comprobar que una sede - escuela no halla sido registrada
         $registro = EscuelaSede::where('escuela_id', $escuela->id)->where('sede_id', $request->sede)->first();
         if ($registro) {
             return redirect('/escuelas/' . $escuela->id)->with('danger','Esta sede ya está asociada... Intenta con otra');
@@ -65,7 +65,7 @@ class EscuelaSedeController extends Controller
         $sede = new EscuelaSede;
         $sede->escuela_id = $escuela->id;
         $sede->sede_id = $request->sede;
-        $sede->user_id = $request->user;
+        $sede->user_id = $request->user;//director de la sede
         $sede->save();
 
         return redirect('/escuelas/' . $escuela->id)->with('success','La sede se ha asociado correctamente');
@@ -90,7 +90,8 @@ class EscuelaSedeController extends Controller
      */
     public function edit(EscuelaSede $escuelaSede)
     {
-        //
+        $users = User::select('id','name')->where('role_id', 3)->orderBy('name','ASC')->get();
+        return view('escuelaSedes.edit', compact('escuelaSede','users'));
     }
 
     /**
@@ -102,7 +103,15 @@ class EscuelaSedeController extends Controller
      */
     public function update(Request $request, EscuelaSede $escuelaSede)
     {
-        //
+        $this->validate($request, [
+            'user' => 'required|integer',
+        ]);
+
+        $director = EscuelaSede::find($escuelaSede->id);
+        $director->user_id = $request->user;
+        $director->save();
+
+        return redirect('/sedes/' . $escuelaSede->sede_id)->with('success','El director de esta sede se ha modificado correctamente');
     }
 
     /**

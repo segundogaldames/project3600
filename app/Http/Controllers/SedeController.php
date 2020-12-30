@@ -4,7 +4,9 @@ namespace App\Http\Controllers;
 
 use App\Sede;
 use App\Comuna;
+use App\EscuelaSede;
 use Illuminate\Http\Request;
+use DB;
 
 class SedeController extends Controller
 {
@@ -72,7 +74,13 @@ class SedeController extends Controller
      */
     public function show(Sede $sede)
     {
-        return view('sedes.show', compact('sede'));
+        $director = EscuelaSede::with('user')->where('sede_id', $sede->id)->first();
+        #query builder
+        $escuelas = DB::table('escuela_sedes')->select('escuelas.id','escuelas.nombre as escuela')
+            ->join('escuelas','escuelas.id','=','escuela_sedes.escuela_id')
+            ->where('escuela_sedes.sede_id', $sede->id)
+            ->get();
+        return view('sedes.show', compact('sede','escuelas','director'));
     }
 
     /**

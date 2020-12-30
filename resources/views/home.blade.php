@@ -18,6 +18,18 @@
                 </div>
             </div>
             <div class="card">
+                <div class="card-header">{{ __('Carreras') }}</div>
+
+                <div class="card-body">
+                    <div class="list-group">
+                        <a href="{{ route('carreras.index') }}" class="list-group-item list-group-item-action" aria-current="true">
+                            Carreras
+                        </a>
+                    </div>
+
+                </div>
+            </div>
+            <div class="card">
                 <div class="card-header">{{ __('Sedes') }}</div>
 
                 <div class="card-body">

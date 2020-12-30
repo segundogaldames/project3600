@@ -10,4 +10,9 @@ class Escuela extends Model
     {
     	return $this->hasMany(EscuelaSede::class);
     }
+
+    public function carreras()
+    {
+    	return $this->hasMany(Carrera::class);
+    }
 }

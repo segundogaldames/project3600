@@ -59,9 +59,11 @@ class EscuelaController extends Controller
      */
     public function show(Escuela $escuela)
     {
+        #$carreras = Carrera::where('escuela_id', $escuela->id)->orderBy('nombre','ASC')->get();
         #uso de query builder
-        $sedes = DB::table('escuela_sedes')->select('sedes.id','sedes.nombre as sede','sedes.direccion')
+        $sedes = DB::table('escuela_sedes')->select('sedes.id','sedes.nombre as sede','sedes.direccion','users.name')
             ->join('sedes','sedes.id','=','escuela_sedes.sede_id')
+            ->join('users','users.id','=','escuela_sedes.user_id')
             ->where('escuela_sedes.escuela_id', $escuela->id)
             ->get();
 
